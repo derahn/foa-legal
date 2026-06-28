@@ -1,9 +1,11 @@
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
 const areas = [
   {
     number: "01",
     title: "Immigration Law",
+    image: "/practice-immigration.jpg",
     summary:
       "We are passionate about helping newcomers and families navigate Canada's immigration system with confidence, clarity, and dignity.",
     services: [
@@ -20,6 +22,7 @@ const areas = [
   {
     number: "02",
     title: "Family Law",
+    image: "/practice-family-v2.jpg",
     summary:
       "We provide compassionate yet strategic representation in sensitive family matters, working diligently to achieve solutions that protect our clients' interests while promoting stability and resolution.",
     services: [
@@ -35,6 +38,7 @@ const areas = [
   {
     number: "03",
     title: "Wills, Estates & Contract Law",
+    image: "/practice-wills.jpg",
     summary:
       "FOA Legal supports clients with estate planning, legal documentation, and contractual matters designed to protect their families, assets, and future interests through clear and effective legal guidance.",
     services: [
@@ -81,8 +85,20 @@ export default function PracticeAreas() {
           {areas.map((area) => (
             <div
               key={area.number}
-              className="bg-[#050505] hover:bg-[#0d0d0d] transition-colors duration-300 p-10 lg:p-14"
+              className="bg-[#050505] hover:bg-[#0d0d0d] transition-colors duration-300 overflow-hidden"
             >
+              {/* Card image */}
+              <div className="relative h-72 w-full">
+                <Image
+                  src={area.image}
+                  alt={area.title}
+                  fill
+                  className="object-cover opacity-40"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#050505]" />
+              </div>
+
+              <div className="p-10 lg:p-14">
               {/* Title row */}
               <div className="flex items-baseline gap-6 mb-6">
                 <span className="text-[#C9A96E99] text-xs tracking-widest flex-shrink-0">
@@ -117,6 +133,7 @@ export default function PracticeAreas() {
                     ))}
                   </ul>
                 </div>
+              </div>
               </div>
             </div>
           ))}

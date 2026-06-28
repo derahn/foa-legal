@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import { ArrowDown } from "lucide-react";
 
 export default function Hero() {
@@ -19,6 +20,17 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex flex-col justify-end overflow-hidden bg-[#0a0a0a]">
+      {/* Background image */}
+      <Image
+        src="/hero-bg.jpg"
+        alt=""
+        fill
+        className="object-cover object-center opacity-25"
+        priority
+      />
+      {/* Dark gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/70 to-[#0a0a0a]/40" />
+
       {/* Background grid pattern */}
       <div
         className="absolute inset-0 opacity-[0.03]"
