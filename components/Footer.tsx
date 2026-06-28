@@ -13,7 +13,7 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <div className="mb-6">
               <Image
-                src="/logo.png"
+                src="/logo-v2.png"
                 alt="FOA Legal Logo"
                 width={200}
                 height={67}
