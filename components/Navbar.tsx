@@ -19,19 +19,14 @@ export default function Navbar() {
   useEffect(() => {
     const header = headerRef.current;
     if (!header) return;
-    const apply = () => {
+    const onScroll = () => {
       const p = Math.min(window.scrollY / 100, 1);
       header.style.backgroundColor = `rgba(10,10,10,${p * 0.95})`;
       header.style.backdropFilter = `blur(${p * 12}px)`;
       header.style.borderBottomColor = `rgba(30,30,30,${p})`;
     };
-    apply();
-    window.addEventListener("scroll", apply, { passive: true });
-    document.addEventListener("visibilitychange", apply);
-    return () => {
-      window.removeEventListener("scroll", apply);
-      document.removeEventListener("visibilitychange", apply);
-    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
