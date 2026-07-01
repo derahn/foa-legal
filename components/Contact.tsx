@@ -5,7 +5,7 @@ import { MapPin, Phone, Mail, Globe, ArrowRight, Send } from "lucide-react";
 
 const contactInfo = [
   { icon: Phone, label: "Phone", value: "(365) 883-2651", href: "tel:3658832651" },
-  { icon: Mail, label: "Email", value: "info@foalegal.ca", href: "mailto:info@foalegal.ca" },
+  { icon: Mail, label: "Email", value: "ronke@foalegal.ca", href: "mailto:ronke@foalegal.ca" },
   { icon: Globe, label: "Website", value: "www.foalegal.ca", href: "https://www.foalegal.ca" },
   {
     icon: MapPin,
@@ -24,11 +24,24 @@ export default function Contact() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In production, wire this to a backend / email service
-    setSubmitted(true);
+    setLoading(true);
+    setError("");
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+    if (res.ok) {
+      setSubmitted(true);
+    } else {
+      setError("Something went wrong. Please try again or email us directly.");
+    }
+    setLoading(false);
   };
 
   const handleChange = (
@@ -198,12 +211,17 @@ export default function Contact() {
                   relationship is created until formally agreed.
                 </p>
 
+                {error && (
+                  <p className="text-red-400 text-xs">{error}</p>
+                )}
+
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-3 px-10 py-4 bg-[#C9A96E] text-black text-xs font-semibold tracking-widest uppercase hover:bg-[#E8D5A3] transition-colors duration-300"
+                  disabled={loading}
+                  className="inline-flex items-center gap-3 px-10 py-4 bg-[#C9A96E] text-black text-xs font-semibold tracking-widest uppercase hover:bg-[#E8D5A3] transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <Send size={14} />
-                  Send Message
+                  {loading ? "Sending..." : "Send Message"}
                 </button>
               </form>
             )}
