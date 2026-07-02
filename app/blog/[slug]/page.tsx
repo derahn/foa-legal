@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Image from "next/image";
 import Link from "next/link";
 import { PortableText } from "next-sanity";
@@ -23,13 +25,6 @@ async function getPost(slug: string): Promise<Post | null> {
     }`,
     { slug }
   );
-}
-
-export async function generateStaticParams() {
-  const slugs: { slug: string }[] = await client.fetch(
-    `*[_type == "post"]{ "slug": slug.current }`
-  );
-  return slugs.map((s) => ({ slug: s.slug }));
 }
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
