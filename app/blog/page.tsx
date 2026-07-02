@@ -12,14 +12,14 @@ interface Post {
   title: string;
   slug: { current: string };
   excerpt?: string;
-  coverImage?: object;
+  mainImage?: object;
   publishedAt?: string;
 }
 
 async function getPosts(): Promise<Post[]> {
   return client.fetch(
     `*[_type == "post"] | order(publishedAt desc) {
-      _id, title, slug, excerpt, coverImage, publishedAt
+      _id, title, slug, excerpt, mainImage, publishedAt
     }`
   );
 }
@@ -57,10 +57,10 @@ export default async function BlogPage() {
                   href={`/blog/${post.slug.current}`}
                   className="bg-[#0a0a0a] hover:bg-[#0d0d0d] transition-colors duration-300 group block"
                 >
-                  {post.coverImage && (
+                  {post.mainImage && (
                     <div className="relative h-52 overflow-hidden">
                       <Image
-                        src={urlFor(post.coverImage).width(600).height(400).url()}
+                        src={urlFor(post.mainImage).width(600).height(400).url()}
                         alt={post.title}
                         fill
                         className="object-cover opacity-70 group-hover:opacity-90 transition-opacity duration-300"

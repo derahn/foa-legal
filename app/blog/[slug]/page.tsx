@@ -12,7 +12,7 @@ import { notFound } from "next/navigation";
 interface Post {
   title: string;
   slug: { current: string };
-  coverImage?: object;
+  mainImage?: object;
   excerpt?: string;
   publishedAt?: string;
   body?: object[];
@@ -21,7 +21,7 @@ interface Post {
 async function getPost(slug: string): Promise<Post | null> {
   return client.fetch(
     `*[_type == "post" && slug.current == $slug][0] {
-      title, slug, coverImage, excerpt, publishedAt, body
+      title, slug, mainImage, excerpt, publishedAt, body
     }`,
     { slug }
   );
@@ -37,10 +37,10 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       <Navbar />
       <main className="bg-[#0a0a0a] min-h-screen pt-32 pb-24">
         {/* Cover image */}
-        {post.coverImage && (
+        {post.mainImage && (
           <div className="relative h-[50vh] w-full mb-16">
             <Image
-              src={urlFor(post.coverImage).width(1600).height(900).url()}
+              src={urlFor(post.mainImage).width(1600).height(900).url()}
               alt={post.title}
               fill
               className="object-cover opacity-40"
